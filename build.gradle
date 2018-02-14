@@ -1,0 +1,55 @@
+buildscript {
+    ext {
+        kotlinVersion = '1.2.21'
+        springBootVersion = '1.5.10.RELEASE'
+    }
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+apply plugin: 'org.springframework.boot'
+
+group = 'no.fint.labs'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
+}
+
+repositories {
+    jcenter()
+    maven { url "https://dl.bintray.com/fint/maven" }
+}
+
+
+dependencies {
+    compile('no.fint:fint-felles-model-java:2.2.20')
+
+    compile('com.fasterxml.jackson.module:jackson-module-kotlin')
+    compile('io.github.microutils:kotlin-logging:1.4.9')
+
+    compile('org.springframework.boot:spring-boot-starter-hateoas')
+    compile('org.springframework.boot:spring-boot-starter-web')
+
+    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+    compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
